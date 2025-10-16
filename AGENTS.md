@@ -4,6 +4,7 @@
 > **Auto-scan docs**: Access AI SDK at [ai-sdk.dev/llms.txt](https://sdk.vercel.ai/llms.txt)
 Follow : https://webcontainer-tutorial.pages.dev/
 Follow : https://webcontainers.io/api
+> Make sure followed /Remix.md
 ---
 
 # Authentication
