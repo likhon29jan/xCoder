@@ -1,4 +1,18 @@
-export const stripIndent = (value: string) => {
+type StripInput = TemplateStringsArray | string
+
+const normalizeInput = (input: StripInput, values: unknown[]) => {
+  if (typeof input === 'string') {
+    return input
+  }
+
+  return input.reduce((acc, segment, index) => {
+    const interpolation = index < values.length ? String(values[index]) : ''
+    return acc + segment + interpolation
+  }, '')
+}
+
+export function stripIndent(input: StripInput, ...values: unknown[]) {
+  const value = normalizeInput(input, values)
   const lines = value.replace(/^\n/, '').split('\n')
   const indent = lines
     .filter(line => line.trim().length > 0)
@@ -16,3 +30,5 @@ export const stripIndent = (value: string) => {
 
   return lines.map(line => line.slice(indent)).join('\n')
 }
+
+export const stripIndents = stripIndent
