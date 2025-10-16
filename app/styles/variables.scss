@@ -1,0 +1,251 @@
+/* Color Tokens Light Theme */
+:root,
+:root[data-theme='light'] {
+  --xCoder-elements-borderColor: theme('colors.alpha.gray.10');
+  --xCoder-elements-borderColorActive: theme('colors.accent.600');
+
+  --xCoder-elements-bg-depth-1: theme('colors.white');
+  --xCoder-elements-bg-depth-2: theme('colors.gray.50');
+  --xCoder-elements-bg-depth-3: theme('colors.gray.200');
+  --xCoder-elements-bg-depth-4: theme('colors.alpha.gray.5');
+
+  --xCoder-elements-textPrimary: theme('colors.gray.950');
+  --xCoder-elements-textSecondary: theme('colors.gray.600');
+  --xCoder-elements-textTertiary: theme('colors.gray.500');
+
+  --xCoder-elements-code-background: theme('colors.gray.100');
+  --xCoder-elements-code-text: theme('colors.gray.950');
+
+  --xCoder-elements-button-primary-background: theme('colors.alpha.accent.10');
+  --xCoder-elements-button-primary-backgroundHover: theme('colors.alpha.accent.20');
+  --xCoder-elements-button-primary-text: theme('colors.accent.500');
+
+  --xCoder-elements-button-secondary-background: theme('colors.alpha.gray.5');
+  --xCoder-elements-button-secondary-backgroundHover: theme('colors.alpha.gray.10');
+  --xCoder-elements-button-secondary-text: theme('colors.gray.950');
+
+  --xCoder-elements-button-danger-background: theme('colors.alpha.red.10');
+  --xCoder-elements-button-danger-backgroundHover: theme('colors.alpha.red.20');
+  --xCoder-elements-button-danger-text: theme('colors.red.500');
+
+  --xCoder-elements-item-contentDefault: theme('colors.alpha.gray.50');
+  --xCoder-elements-item-contentActive: theme('colors.gray.950');
+  --xCoder-elements-item-contentAccent: theme('colors.accent.700');
+  --xCoder-elements-item-contentDanger: theme('colors.red.500');
+  --xCoder-elements-item-backgroundDefault: rgba(0, 0, 0, 0);
+  --xCoder-elements-item-backgroundActive: theme('colors.alpha.gray.5');
+  --xCoder-elements-item-backgroundAccent: theme('colors.alpha.accent.10');
+  --xCoder-elements-item-backgroundDanger: theme('colors.alpha.red.10');
+
+  --xCoder-elements-loader-background: theme('colors.alpha.gray.10');
+  --xCoder-elements-loader-progress: theme('colors.accent.500');
+
+  --xCoder-elements-artifacts-background: theme('colors.white');
+  --xCoder-elements-artifacts-backgroundHover: theme('colors.alpha.gray.2');
+  --xCoder-elements-artifacts-borderColor: var(--xCoder-elements-borderColor);
+  --xCoder-elements-artifacts-inlineCode-background: theme('colors.gray.100');
+  --xCoder-elements-artifacts-inlineCode-text: var(--xCoder-elements-textPrimary);
+
+  --xCoder-elements-actions-background: theme('colors.white');
+  --xCoder-elements-actions-code-background: theme('colors.gray.800');
+
+  --xCoder-elements-messages-background: theme('colors.gray.100');
+  --xCoder-elements-messages-linkColor: theme('colors.accent.500');
+  --xCoder-elements-messages-code-background: theme('colors.gray.800');
+  --xCoder-elements-messages-inlineCode-background: theme('colors.gray.200');
+  --xCoder-elements-messages-inlineCode-text: theme('colors.gray.800');
+
+  --xCoder-elements-icon-success: theme('colors.green.500');
+  --xCoder-elements-icon-error: theme('colors.red.500');
+  --xCoder-elements-icon-primary: theme('colors.gray.950');
+  --xCoder-elements-icon-secondary: theme('colors.gray.600');
+  --xCoder-elements-icon-tertiary: theme('colors.gray.500');
+
+  --xCoder-elements-dividerColor: theme('colors.gray.100');
+
+  --xCoder-elements-prompt-background: theme('colors.alpha.white.80');
+
+  --xCoder-elements-sidebar-dropdownShadow: theme('colors.alpha.gray.10');
+  --xCoder-elements-sidebar-buttonBackgroundDefault: theme('colors.alpha.accent.10');
+  --xCoder-elements-sidebar-buttonBackgroundHover: theme('colors.alpha.accent.20');
+  --xCoder-elements-sidebar-buttonText: theme('colors.accent.700');
+
+  --xCoder-elements-preview-addressBar-background: theme('colors.gray.100');
+  --xCoder-elements-preview-addressBar-backgroundHover: theme('colors.alpha.gray.5');
+  --xCoder-elements-preview-addressBar-backgroundActive: theme('colors.white');
+  --xCoder-elements-preview-addressBar-text: var(--xCoder-elements-textSecondary);
+  --xCoder-elements-preview-addressBar-textActive: var(--xCoder-elements-textPrimary);
+
+  --xCoder-elements-terminals-background: theme('colors.white');
+  --xCoder-elements-terminals-buttonBackground: var(--xCoder-elements-bg-depth-4);
+
+  --xCoder-elements-cta-background: theme('colors.gray.100');
+  --xCoder-elements-cta-text: theme('colors.gray.950');
+
+  /* Terminal Colors */
+  --xCoder-terminal-background: var(--xCoder-elements-terminals-background);
+  --xCoder-terminal-foreground: #333333;
+  --xCoder-terminal-selection-background: #00000040;
+  --xCoder-terminal-black: #000000;
+  --xCoder-terminal-red: #cd3131;
+  --xCoder-terminal-green: #00bc00;
+  --xCoder-terminal-yellow: #949800;
+  --xCoder-terminal-blue: #0451a5;
+  --xCoder-terminal-magenta: #bc05bc;
+  --xCoder-terminal-cyan: #0598bc;
+  --xCoder-terminal-white: #555555;
+  --xCoder-terminal-brightBlack: #686868;
+  --xCoder-terminal-brightRed: #cd3131;
+  --xCoder-terminal-brightGreen: #00bc00;
+  --xCoder-terminal-brightYellow: #949800;
+  --xCoder-terminal-brightBlue: #0451a5;
+  --xCoder-terminal-brightMagenta: #bc05bc;
+  --xCoder-terminal-brightCyan: #0598bc;
+  --xCoder-terminal-brightWhite: #a5a5a5;
+}
+
+/* Color Tokens Dark Theme */
+:root,
+:root[data-theme='dark'] {
+  --xCoder-elements-borderColor: theme('colors.alpha.white.10');
+  --xCoder-elements-borderColorActive: theme('colors.accent.500');
+
+  --xCoder-elements-bg-depth-1: theme('colors.gray.950');
+  --xCoder-elements-bg-depth-2: theme('colors.gray.900');
+  --xCoder-elements-bg-depth-3: theme('colors.gray.800');
+  --xCoder-elements-bg-depth-4: theme('colors.alpha.white.5');
+
+  --xCoder-elements-textPrimary: theme('colors.white');
+  --xCoder-elements-textSecondary: theme('colors.gray.400');
+  --xCoder-elements-textTertiary: theme('colors.gray.500');
+
+  --xCoder-elements-code-background: theme('colors.gray.800');
+  --xCoder-elements-code-text: theme('colors.white');
+
+  --xCoder-elements-button-primary-background: theme('colors.alpha.accent.10');
+  --xCoder-elements-button-primary-backgroundHover: theme('colors.alpha.accent.20');
+  --xCoder-elements-button-primary-text: theme('colors.accent.500');
+
+  --xCoder-elements-button-secondary-background: theme('colors.alpha.white.5');
+  --xCoder-elements-button-secondary-backgroundHover: theme('colors.alpha.white.10');
+  --xCoder-elements-button-secondary-text: theme('colors.white');
+
+  --xCoder-elements-button-danger-background: theme('colors.alpha.red.10');
+  --xCoder-elements-button-danger-backgroundHover: theme('colors.alpha.red.20');
+  --xCoder-elements-button-danger-text: theme('colors.red.500');
+
+  --xCoder-elements-item-contentDefault: theme('colors.alpha.white.50');
+  --xCoder-elements-item-contentActive: theme('colors.white');
+  --xCoder-elements-item-contentAccent: theme('colors.accent.500');
+  --xCoder-elements-item-contentDanger: theme('colors.red.500');
+  --xCoder-elements-item-backgroundDefault: rgba(255, 255, 255, 0);
+  --xCoder-elements-item-backgroundActive: theme('colors.alpha.white.10');
+  --xCoder-elements-item-backgroundAccent: theme('colors.alpha.accent.10');
+  --xCoder-elements-item-backgroundDanger: theme('colors.alpha.red.10');
+
+  --xCoder-elements-loader-background: theme('colors.alpha.gray.10');
+  --xCoder-elements-loader-progress: theme('colors.accent.500');
+
+  --xCoder-elements-artifacts-background: theme('colors.gray.900');
+  --xCoder-elements-artifacts-backgroundHover: theme('colors.alpha.white.5');
+  --xCoder-elements-artifacts-borderColor: var(--xCoder-elements-borderColor);
+  --xCoder-elements-artifacts-inlineCode-background: theme('colors.gray.800');
+  --xCoder-elements-artifacts-inlineCode-text: theme('colors.white');
+
+  --xCoder-elements-actions-background: theme('colors.gray.900');
+  --xCoder-elements-actions-code-background: theme('colors.gray.800');
+
+  --xCoder-elements-messages-background: theme('colors.gray.800');
+  --xCoder-elements-messages-linkColor: theme('colors.accent.500');
+  --xCoder-elements-messages-code-background: theme('colors.gray.900');
+  --xCoder-elements-messages-inlineCode-background: theme('colors.gray.700');
+  --xCoder-elements-messages-inlineCode-text: var(--xCoder-elements-textPrimary);
+
+  --xCoder-elements-icon-success: theme('colors.green.400');
+  --xCoder-elements-icon-error: theme('colors.red.400');
+  --xCoder-elements-icon-primary: theme('colors.gray.950');
+  --xCoder-elements-icon-secondary: theme('colors.gray.600');
+  --xCoder-elements-icon-tertiary: theme('colors.gray.500');
+
+  --xCoder-elements-dividerColor: theme('colors.gray.100');
+
+  --xCoder-elements-prompt-background: theme('colors.alpha.gray.80');
+
+  --xCoder-elements-sidebar-dropdownShadow: theme('colors.alpha.gray.30');
+  --xCoder-elements-sidebar-buttonBackgroundDefault: theme('colors.alpha.accent.10');
+  --xCoder-elements-sidebar-buttonBackgroundHover: theme('colors.alpha.accent.20');
+  --xCoder-elements-sidebar-buttonText: theme('colors.accent.500');
+
+  --xCoder-elements-preview-addressBar-background: var(--xCoder-elements-bg-depth-1);
+  --xCoder-elements-preview-addressBar-backgroundHover: theme('colors.alpha.white.5');
+  --xCoder-elements-preview-addressBar-backgroundActive: var(--xCoder-elements-bg-depth-1);
+  --xCoder-elements-preview-addressBar-text: var(--xCoder-elements-textSecondary);
+  --xCoder-elements-preview-addressBar-textActive: var(--xCoder-elements-textPrimary);
+
+  --xCoder-elements-terminals-background: var(--xCoder-elements-bg-depth-1);
+  --xCoder-elements-terminals-buttonBackground: var(--xCoder-elements-bg-depth-3);
+
+  --xCoder-elements-cta-background: theme('colors.alpha.white.10');
+  --xCoder-elements-cta-text: theme('colors.white');
+
+  /* Terminal Colors */
+  --xCoder-terminal-background: var(--xCoder-elements-terminals-background);
+  --xCoder-terminal-foreground: #eff0eb;
+  --xCoder-terminal-selection-background: #97979b33;
+  --xCoder-terminal-black: #000000;
+  --xCoder-terminal-red: #ff5c57;
+  --xCoder-terminal-green: #5af78e;
+  --xCoder-terminal-yellow: #f3f99d;
+  --xCoder-terminal-blue: #57c7ff;
+  --xCoder-terminal-magenta: #ff6ac1;
+  --xCoder-terminal-cyan: #9aedfe;
+  --xCoder-terminal-white: #f1f1f0;
+  --xCoder-terminal-brightBlack: #686868;
+  --xCoder-terminal-brightRed: #ff5c57;
+  --xCoder-terminal-brightGreen: #5af78e;
+  --xCoder-terminal-brightYellow: #f3f99d;
+  --xCoder-terminal-brightBlue: #57c7ff;
+  --xCoder-terminal-brightMagenta: #ff6ac1;
+  --xCoder-terminal-brightCyan: #9aedfe;
+  --xCoder-terminal-brightWhite: #f1f1f0;
+}
+
+/*
+ * Element Tokens
+ *
+ * Hierarchy: Element Token -> (Element Token | Color Tokens) -> Primitives
+ */
+:root {
+  --header-height: 54px;
+  --chat-max-width: 37rem;
+  --chat-min-width: 640px;
+  --workbench-width: min(calc(100% - var(--chat-min-width)), 1536px);
+  --workbench-inner-width: var(--workbench-width);
+  --workbench-left: calc(100% - var(--workbench-width));
+
+  /* Toasts */
+  --toastify-color-progress-success: var(--xCoder-elements-icon-success);
+  --toastify-color-progress-error: var(--xCoder-elements-icon-error);
+
+  /* Terminal */
+  --xCoder-elements-terminal-backgroundColor: var(--xCoder-terminal-background);
+  --xCoder-elements-terminal-textColor: var(--xCoder-terminal-foreground);
+  --xCoder-elements-terminal-cursorColor: var(--xCoder-terminal-foreground);
+  --xCoder-elements-terminal-selection-backgroundColor: var(--xCoder-terminal-selection-background);
+  --xCoder-elements-terminal-color-black: var(--xCoder-terminal-black);
+  --xCoder-elements-terminal-color-red: var(--xCoder-terminal-red);
+  --xCoder-elements-terminal-color-green: var(--xCoder-terminal-green);
+  --xCoder-elements-terminal-color-yellow: var(--xCoder-terminal-yellow);
+  --xCoder-elements-terminal-color-blue: var(--xCoder-terminal-blue);
+  --xCoder-elements-terminal-color-magenta: var(--xCoder-terminal-magenta);
+  --xCoder-elements-terminal-color-cyan: var(--xCoder-terminal-cyan);
+  --xCoder-elements-terminal-color-white: var(--xCoder-terminal-white);
+  --xCoder-elements-terminal-color-brightBlack: var(--xCoder-terminal-brightBlack);
+  --xCoder-elements-terminal-color-brightRed: var(--xCoder-terminal-brightRed);
+  --xCoder-elements-terminal-color-brightGreen: var(--xCoder-terminal-brightGreen);
+  --xCoder-elements-terminal-color-brightYellow: var(--xCoder-terminal-brightYellow);
+  --xCoder-elements-terminal-color-brightBlue: var(--xCoder-terminal-brightBlue);
+  --xCoder-elements-terminal-color-brightMagenta: var(--xCoder-terminal-brightMagenta);
+  --xCoder-elements-terminal-color-brightCyan: var(--xCoder-terminal-brightCyan);
+  --xCoder-elements-terminal-color-brightWhite: var(--xCoder-terminal-brightWhite);
+}
