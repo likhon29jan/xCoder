@@ -21,6 +21,6 @@
     },
     "types": ["@cloudflare/workers-types"]
   },
-  "include": ["app", "src", "remix.env.d.ts", "vite.config.ts"],
+  "include": ["app", "src", "types", "remix.env.d.ts", "vite.config.ts"],
   "exclude": ["node_modules", "build"]
 }
