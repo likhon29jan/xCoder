@@ -181,7 +181,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 💬 Community
 
-- [Join our Discord](httpsTBD)
+- [Join our Telegram](https://t.me/likhonsheikh)
 - [Follow us on Twitter](TBD)
 
 ---
