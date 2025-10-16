@@ -2,10 +2,26 @@
 
 Full-Stack in the Browser:  integrates cutting-edge AI models with an in-browser development environment powered by StackBlitz’s WebContainers. This allows you to:
 
-Install and run npm tools and libraries (like Vite, Next.js, and more)
-Run Node.js servers
-Interact with third-party APIs
-Deploy to production from chat
-Share your work via a URL
+- Install and run npm tools and libraries (like Vite, Next.js, and more)
+- Run Node.js servers
+- Interact with third-party APIs
+- Deploy to production from chat
+- Share your work via a URL
+
 AI with Environment Control: Unlike traditional dev environments where the AI can only assist in code generation, itz gives AI models complete control over the entire environment including the filesystem, node server, package manager, terminal, and browser console. This empowers AI agents to handle the entire app lifecycle—from creation to deployment.
 
+## Getting Started
+
+To get started with xCoder, follow these steps:
+
+1.  **Install dependencies:**
+    ```bash
+    pnpm install
+    ```
+
+2.  **Run the development server:**
+    ```bash
+    pnpm dev
+    ```
+
+This will start the Remix development server, and you can view the application in your browser at the address provided.
