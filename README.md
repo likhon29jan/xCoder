@@ -8,7 +8,7 @@
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/likhon29jan/xCoder/refs/heads/main/.github/logo_xcoder%404x.png" alt="xCoder Logo" width="200">
-  <h1>xCoder</h1>
+  
   <p><b>An AI-powered web development agent that allows you to prompt, run, edit, and deploy full-stack applications directly from your browser—no local setup required.</b></p>
 
   <p>
