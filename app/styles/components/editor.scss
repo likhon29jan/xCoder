@@ -1,0 +1,55 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  background: var(--xCoder-elements-bg-depth-1);
+  border-radius: 0.75rem;
+  border: 1px solid var(--xCoder-elements-borderColor);
+  overflow: hidden;
+}
+
+.editor__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--xCoder-elements-borderColor);
+  background: var(--xCoder-elements-bg-depth-2);
+}
+
+.editor__tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editor__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  color: var(--xCoder-elements-item-contentDefault);
+  background: var(--xCoder-elements-item-backgroundDefault);
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &.is-active {
+    color: var(--xCoder-elements-item-contentActive);
+    background: var(--xCoder-elements-item-backgroundActive);
+  }
+}
+
+.editor__body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 400px;
+}
+
+.editor__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--xCoder-elements-borderColor);
+  background: var(--xCoder-elements-bg-depth-2);
+}

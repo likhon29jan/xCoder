@@ -1,4 +1,5 @@
 export const primaryNavigation = [
+  { name: 'Platform', to: '/platform' },
   { name: 'Resources', to: '/resources' },
   { name: 'Support', to: '/support' },
   { name: 'Blog', to: '/blog' },
