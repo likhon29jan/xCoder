@@ -1,0 +1,60 @@
+code,
+pre code {
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  background: var(--xCoder-elements-code-background);
+  color: var(--xCoder-elements-code-text);
+  border-radius: 0.5rem;
+}
+
+pre {
+  background: var(--xCoder-elements-code-background);
+  color: var(--xCoder-elements-code-text);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 0;
+  overflow-x: auto;
+  box-shadow: inset 0 0 0 1px var(--xCoder-elements-borderColor);
+}
+
+.code-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--xCoder-elements-code-background);
+  color: var(--xCoder-elements-code-text);
+  border-radius: 0.75rem;
+  border: 1px solid var(--xCoder-elements-borderColor);
+}
+
+.code-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--xCoder-elements-borderColor);
+  background: var(--xCoder-elements-bg-depth-2);
+}
+
+.code-block__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.code-block__action-button {
+  background: var(--xCoder-elements-button-secondary-background);
+  color: var(--xCoder-elements-button-secondary-text);
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: var(--xCoder-elements-button-secondary-backgroundHover);
+    border-color: var(--xCoder-elements-borderColorActive);
+    color: var(--xCoder-elements-button-primary-text);
+  }
+}
