@@ -632,7 +632,340 @@ export {}; // necessary for TS to treat this as a module
 
 ```
 
+# Remix on Vercel
 
+Remix is a fullstack, [server-rendered](#server-side-rendering-ssr) React framework. Its built-in features for nested pages, error boundaries, transitions between loading states, and more, enable developers to create modern web apps.
+
+With Vercel, you can deploy server-rendered Remix and Remix V2 applications to Vercel with zero configuration. When using the [Remix Vite plugin](https://remix.run/docs/en/main/future/vite), static site generation using [SPA mode](https://remix.run/docs/en/main/future/spa-mode) is also supported.
+
+It is highly recommended that your application uses the Remix Vite plugin, in conjunction with the [Vercel Preset](#vercel-vite-preset), when deploying to Vercel.
+
+## [Getting started](#getting-started)
+
+To get started with Remix on Vercel:
+
+*   If you already have a project with Remix, install [Vercel CLI](/docs/cli) and run the `vercel` command from your project's root directory
+*   Clone one of our Remix example repos to your favorite git provider and deploy it on Vercel with the button below:
+
+[Deploy our Remix template, or view a live example.](/templates/remix/remix-boilerplate)
+
+[Deploy](/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fvercel%2Ftree%2Fmain%2Fexamples%2Fremix&template=remix)[Live Example](https://remix-run-template.vercel.app)
+
+*   Or, choose a template from Vercel's marketplace:
+
+Vercel deployments can [integrate with your git provider](/docs/git) to [generate preview URLs](/docs/deployments/environments#preview-environment-pre-production) for each pull request you make to your Remix project.
+
+## [`@vercel/remix`](#@vercel/remix)
+
+The [`@vercel/remix`](https://www.npmjs.com/package/@vercel/remix) package exposes useful types and utilities for Remix apps deployed on Vercel, such as:
+
+*   [`json`](https://remix.run/docs/en/main/utils/json)
+*   [`defer`](https://remix.run/docs/en/main/utils/defer)
+*   [`createCookie`](https://remix.run/docs/en/main/utils/cookies#createcookie)
+
+To best experience Vercel features such as [streaming](#response-streaming), [Vercel Functions](#vercel-functions), and more, we recommend importing utilities from `@vercel/remix` rather than from standard Remix packages such as `@remix-run/node`.
+
+`@vercel/remix` should be used anywhere in your code that you normally would import utility functions from the following packages:
+
+*   [`@remix-run/node`](https://www.npmjs.com/package/@remix-run/node)
+*   [`@remix-run/cloudflare`](https://www.npmjs.com/package/@remix-run/cloudflare)
+*   [`@remix-run/server-runtime`](https://www.npmjs.com/package/@remix-run/server-runtime)
+
+To get started, navigate to the root directory of your Remix project with your terminal and install `@vercel/remix` with your preferred package manager:
+
+pnpmyarnnpmbun
+
+```
+pnpm i @vercel/remix
+```
+
+## [Vercel Vite Preset](#vercel-vite-preset)
+
+When using the [Remix Vite plugin](https://remix.run/docs/en/main/future/vite) (highly recommended), you should configure the Vercel Preset to enable the full feature set that Vercel offers.
+
+To configure the Preset, add the following lines to your `vite.config` file:
+
+/vite.config.ts
+
+```
+import { vitePlugin as remix } from '@remix-run/dev';
+import { installGlobals } from '@remix-run/node';
+import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import { vercelPreset } from '@vercel/remix/vite';
+ 
+installGlobals();
+ 
+export default defineConfig({
+  plugins: [
+    remix({
+      presets: [vercelPreset()],
+    }),
+    tsconfigPaths(),
+  ],
+});
+```
+
+Using this Preset enables Vercel-specific functionality such as rendering your Remix application with Vercel Functions.
+
+## [Server-Side Rendering (SSR)](#server-side-rendering-ssr)
+
+Server-Side Rendering (SSR) allows you to render pages dynamically on the server. This is useful for pages where the rendered data needs to be unique on every request. For example, checking authentication or looking at the location of an incoming request.
+
+Remix routes defined in `app/routes` are deployed with server-side rendering by default.
+
+The following example demonstrates a basic route that renders with SSR:
+
+/app/routes/\_index.tsx
+
+TypeScript
+
+TypeScriptJavaScript
+
+```
+export default function IndexRoute() {
+  return (
+    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
+      <h1>This route is rendered on the server</h1>
+    </div>
+  );
+}
+```
+
+### [Vercel Functions](#vercel-functions)
+
+Vercel Functions execute using Node.js. They enable developers to write functions that use resources that scale up and down based on traffic demands. This prevents them from failing during peak hours, but keeps them from running up high costs during periods of low activity.
+
+Remix API routes in `app/routes` are deployed as Vercel Functions by default.
+
+The following example demonstrates a basic route that renders a page with the heading, "Welcome to Remix with Vercel":
+
+/app/routes/serverless-example.tsx
+
+TypeScript
+
+TypeScriptJavaScript
+
+```
+export default function Serverless() {
+  return <h1>Welcome to Remix with Vercel</h1>;
+}
+```
+
+To summarize, Server-Side Rendering (SSR) with Remix on Vercel:
+
+*   Scales to zero when not in use
+*   Scales automatically with traffic increases
+*   Has framework-aware infrastructure to generate Vercel Functions
+
+## [Response streaming](#response-streaming)
+
+[Streaming HTTP responses](/docs/functions/streaming-functions)
+
+with Remix on Vercel is supported with Vercel Functions. See the [Streaming](https://remix.run/docs/en/main/guides/streaming) page in the Remix docs for general instructions.
+
+The following example demonstrates a route that simulates a throttled network by delaying a promise's result, and renders a loading state until the promise is resolved:
+
+/app/routes/defer-route.tsx
+
+TypeScript
+
+TypeScriptJavaScript
+
+```
+import { Suspense } from 'react';
+import { Await, useLoaderData } from '@remix-run/react';
+import { defer } from '@vercel/remix';
+ 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+ 
+export async function loader({ request }) {
+  const version = process.versions.node;
+ 
+  return defer({
+    // Don't let the promise resolve for 1 second
+    version: sleep(1000).then(() => version),
+  });
+}
+ 
+export default function DeferredRoute() {
+  const { version } = useLoaderData();
+ 
+  return (
+    <Suspense fallback={'Loading…'}>
+      <Await resolve={version}>{(version) => <strong>{version}</strong>}</Await>
+    </Suspense>
+  );
+}
+```
+
+To summarize, Streaming with Remix on Vercel:
+
+*   Offers faster Function response times, improving your app's user experience
+*   Allows you to return large amounts of data without exceeding Vercel Function response size limits
+*   Allows you to display Instant Loading UI from the server with Remix's `defer()` and `Await`
+
+[Learn more about Streaming](/docs/functions/streaming-functions)
+
+## [`Cache-Control` headers](#cache-control-headers)
+
+Vercel's [CDN](/docs/cdn) caches your content at the edge in order to serve data to your users as fast as possible. [Static caching](/docs/edge-cache#static-files-caching) works with zero configuration.
+
+By adding a `Cache-Control` header to responses returned by your Remix routes, you can specify a set of caching rules for both client (browser) requests and server responses. A cache must obey the requirements defined in the Cache-Control header.
+
+Remix supports header modifications with the [`headers`](https://remix.run/docs/en/main/route/headers) function, which you can export in your routes defined in `app/routes`.
+
+The following example demonstrates a route that adds `Cache Control` headers which instruct the route to:
+
+*   Return cached content for requests repeated within 1 second without revalidating the content
+*   For requests repeated after 1 second, but before 60 seconds have passed, return the cached content and mark it as stale. The stale content will be revalidated in the background with a fresh value from your [`loader`](https://remix.run/docs/en/1.14.0/route/loader) function
+
+/app/routes/example.tsx
+
+TypeScript
+
+TypeScriptJavaScript
+
+```
+import type { HeadersFunction } from '@vercel/remix';
+ 
+export const headers: HeadersFunction = () => ({
+  'Cache-Control': 's-maxage=1, stale-while-revalidate=59',
+});
+ 
+export async function loader() {
+  // Fetch data necessary to render content
+}
+```
+
+See [our docs on cache limits](/docs/edge-cache#limits) to learn the max size and lifetime of caches stored on Vercel.
+
+To summarize, using `Cache-Control` headers with Remix on Vercel:
+
+*   Allow you to cache responses for server-rendered Remix apps using Vercel Functions
+*   Allow you to serve content from the cache _while updating the cache in the background_ with `stale-while-revalidate`
+
+[Learn more about caching](/docs/edge-cache#how-to-cache-responses)
+
+## [Analytics](#analytics)
+
+Vercel's Analytics features enable you to visualize and monitor your application's performance over time. The Analytics tab in your project's dashboard offers detailed insights into your website's visitors, with metrics like top pages, top referrers, and user demographics.
+
+To use Analytics, navigate to the Analytics tab of your project dashboard on Vercel and select Enable in the modal that appears.
+
+To track visitors and page views, we recommend first installing our `@vercel/analytics` package by running the terminal command below in the root directory of your Remix project:
+
+pnpmyarnnpmbun
+
+```
+pnpm i @vercel/analytics
+```
+
+Then, follow the instructions below to add the `Analytics` component to your app. The `Analytics` component is a wrapper around Vercel's tracking script, offering a seamless integration with Remix.
+
+Add the following component to your `root` file:
+
+app/root.tsx
+
+TypeScript
+
+TypeScriptJavaScript
+
+```
+import { Analytics } from '@vercel/analytics/react';
+ 
+export default function App() {
+  return (
+    <html lang="en">
+      <body>
+        <Analytics />
+      </body>
+    </html>
+  );
+}
+```
+
+To summarize, Analytics with Remix on Vercel:
+
+*   Enables you to track traffic and see your top-performing pages
+*   Offers you detailed breakdowns of visitor demographics, including their OS, browser, geolocation and more
+
+[Learn more about Analytics](/docs/analytics)
+
+## [Using a custom `app/entry.server` file](#using-a-custom-app/entry.server-file)
+
+By default, Vercel supplies an implementation of the `entry.server` file which is configured for streaming to work with Vercel Functions. This version will be used when no `entry.server` file is found in the project, or when the existing `entry.server` file has not been modified from the base Remix template.
+
+However, if your application requires a customized `app/entry.server.jsx` or `app/entry.server.tsx` file (for example, to wrap the `<RemixServer>` component with a React context), you should base it off of this template:
+
+/app/entry.server.tsx
+
+TypeScript
+
+TypeScriptJavaScript
+
+```
+import { RemixServer } from '@remix-run/react';
+import { handleRequest, type EntryContext } from '@vercel/remix';
+ 
+export default async function (
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
+) {
+  let remixServer = <RemixServer context={remixContext} url={request.url} />;
+  return handleRequest(
+    request,
+    responseStatusCode,
+    responseHeaders,
+    remixServer,
+  );
+}
+```
+
+## [Using a custom `server` file](#using-a-custom-server-file)
+
+Defining a custom `server` file is not supported when using the Remix Vite plugin on Vercel.
+
+It's usually not necessary to define a custom server.js file within your Remix application when deploying to Vercel. In general, we do not recommend it.
+
+If your project requires a custom [`server`](https://remix.run/docs/en/main/file-conventions/remix-config#md-server) file, you will need to [install `@vercel/remix`](#@vercel/remix) and import `createRequestHandler` from `@vercel/remix/server`. The following example demonstrates a basic `server.js` file:
+
+server.ts
+
+TypeScript
+
+TypeScriptJavaScript
+
+```
+import { createRequestHandler } from '@vercel/remix/server';
+import * as build from '@remix-run/dev/server-build';
+ 
+export default createRequestHandler({
+  build,
+  mode: process.env.NODE_ENV,
+  getLoadContext() {
+    return {
+      nodeLoadContext: true,
+    };
+  },
+});
+```
+
+## [More benefits](#more-benefits)
+
+See [our Frameworks documentation page](/docs/frameworks) to learn about the benefits available to all frameworks when you deploy on Vercel.
+
+## [More resources](#more-resources)
+
+Learn more about deploying Remix projects on Vercel with the following resources:
+
+*   [Explore Remix in a monorepo](/templates/remix/turborepo-kitchensink)
+*   [Deploy our Product Roadmap template](/templates/remix/roadmap-voting-app-rowy)
+*   [Explore the Remix docs](https://remix.run/docs/en/main)
 ```
 import type { Route } from "./+types/my-route";
 
@@ -646,3 +979,105 @@ export function action({ context }: Route.ActionArgs) {}
 
 
 Congratulations! You are now on React Router v7. Go ahead and run your application to make sure everything is working as expected.
+---
+title: "Remix on Netlify"
+description: "Learn about Remix on our platform. Create a new Remix app or update the deploy target for an existing Remix app."
+---
+
+Remix gives you a server and browser runtime that focuses on performance and excellent user experiences. With Remix, you get a number of built-in tools to build better websites, such as nested routes, parallel data requests, and robust built-in error handling.
+
+## Key features
+
+These features provide important benefits for Remix projects, including those built by and deployed with Netlify.
+
+- **Nested routes.** By default, Remix creates routes for components that serve as boundaries for data loading and code splitting.
+- **Parallel data requests by default.** Instead of waiting on sequential requests, Remix processes requests in parallel and then sends a complete HTML document.
+- **Built-in global error handling.** Remix has built-in error handling for server and client rendering and server side data handling. Error boundaries don't block the entire page from rendering, only the affected component.
+
+## Netlify integration
+
+You can create a Remix app and deploy it on Netlify using the Netlify starter template for Remix with the command `npx create-remix@latest --template netlify/remix-template`. This template automatically creates everything you need to deploy to Netlify - including a pre-configured `netlify.toml` file with [typical build settings](/build/frameworks/overview#remix).
+
+### Create a new Remix app to deploy to Netlify
+
+You can use the command line to scaffold a new project based on the Netlify starter template for Remix. This can streamline the process of getting your project up and running.
+
+1. In your terminal, run `npx create-remix@latest --template netlify/remix-template`.
+2. Choose where you want to create your project.
+3. Decide whether you want to use TypeScript or JavaScript.
+4. Enter **Y** to have `create-remix` run `npm install` for your project.
+5. Choose whether you want to run your app with functions or [edge functions](#edge-functions).
+6. Follow the starter template README to get your project running.
+
+### Update the deploy target for an existing Remix app
+
+If you have an existing Remix project that isn't deployed on Netlify and you want to change the deploy target to Netlify, you need to create a new Remix project.
+
+1. Create a [new Remix project](#create-a-new-remix-app-to-deploy-to-netlify) with Netlify as the deploy target.
+2. Replace the new project's `app` directory with the `app` directory from your old project.
+
+#### Manual configuration
+
+Alternatively, you can configure this manually.
+
+First, ensure you're using Remix Vite. If not, [follow this
+guide](https://developers.netlify.com/guides/how-to-deploy-remix-vite-to-netlify/).
+
+Then, install Netlify's Remix adapter and add its Vite plugin to your Vite config:
+
+```bash
+npm install --save-dev @netlify/remix-adapter
+```
+
+### Tabs Component:
+
+<TabItem label="vite.config.ts">
+
+```typescript
+import { vitePlugin as remix } from "@remix-run/dev";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+// ↓ add this
+import { netlifyPlugin } from "@netlify/remix-adapter/plugin";
+
+export default defineConfig({
+  plugins: [
+    remix(),
+    tsconfigPaths(),
+    netlifyPlugin() // ← add this
+  ]
+});
+```
+
+</TabItem>
+
+<TabItem label="vite.config.js">
+
+```js
+import { vitePlugin as remix } from "@remix-run/dev";
+// ↓ add this
+import { netlifyPlugin } from "@netlify/remix-adapter/plugin";
+
+export default {
+  plugins: [
+    remix(),
+    netlifyPlugin() // ← add this
+  ]
+};
+```
+
+</TabItem>
+
+### Edge Functions
+
+[Edge Functions](/build/edge-functions/overview) connect the Netlify platform and workflow with an open runtime standard at the network edge. This enables you to build fast, personalized web experiences with an ecosystem of development tools, including Remix.
+
+To take advantage of Netlify Edge Functions with Remix, follow the steps above to [create a new Remix app to deploy on Netlify](#create-a-new-remix-app-to-deploy-to-netlify). When the CLI prompts you to select the type of functions to run your Remix app with, select **Netlify Edge Functions**.
+
+## More resources
+
+- [Typical Remix build settings](/build/frameworks/overview#remix)
+- [Netlify starter template for Remix](https://github.com/netlify/remix-template)
+- [Deploy Remix to Netlify](https://remix.run/docs/en/main/guides/deployment#netlify)
+- [Developer guide: build a high-performance Remix image component with Unpic and Netlify Image CDN](https://developers.netlify.com/guides/build-a-remix-image-component-with-unpic-netlify-image-cdn/)
+- [Remix docs about HTTP handlers and adapters](https://remix.run/docs/en/v1/pages/technical-explanation#http-handler-and-adapters)
